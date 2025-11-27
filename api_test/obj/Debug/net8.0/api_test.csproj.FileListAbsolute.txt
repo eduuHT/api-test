@@ -33,3 +33,4 @@ D:\Drive\Code\Personal Projects\VSCode\WebDev\api_test\api_test\obj\Debug\net8.0
 D:\Drive\Code\Personal Projects\VSCode\WebDev\api_test\api_test\obj\Debug\net8.0\api_test.pdb
 D:\Drive\Code\Personal Projects\VSCode\WebDev\api_test\api_test\obj\Debug\net8.0\api_test.genruntimeconfig.cache
 D:\Drive\Code\Personal Projects\VSCode\WebDev\api_test\api_test\obj\Debug\net8.0\ref\api_test.dll
+D:\Drive\Code\Personal Projects\VSCode\WebDev\api_test\api_test\obj\Debug\net8.0\api_test.sourcelink.json

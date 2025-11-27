@@ -9,5 +9,4 @@ public class Book
     public int Pages { get; set; }
     public string Title { get; set; } = string.Empty;
 
-    public required Author Author { get; set; }
 }

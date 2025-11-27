@@ -1,3 +1,4 @@
+using api_test.Models;
 
 namespace api_test;
 
