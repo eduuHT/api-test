@@ -6,7 +6,7 @@ namespace api_test.Services;
 public class AuthorDataStore
 {
     public List<Author> Authors { get; set; }
-    public static AuthorDataStore current { get; } = new AuthorDataStore();
+    public static AuthorDataStore Current { get; } = new AuthorDataStore(); // Singleton
 
     // Constructor
     public AuthorDataStore()
