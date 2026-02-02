@@ -45,5 +45,19 @@ namespace api_test.Controllers
                 new { authorId = newAuthor.Id},
                 newAuthor);
         }
+
+        [HttpPut("{authorId}")]
+        public ActionResult<Author> PutAuthor([FromRoute] int authorId, [FromBody] AuthorInsert authorInsert)
+        {
+            var author = AuthorDataStore.Current.Authors.FirstOrDefault(x => x.Id == authorId);
+
+            if (author == null)
+                return NotFound("The requested Author could not be found.");
+
+            author.FirstName = authorInsert.FirstName;
+            author.LastName = authorInsert.LastName;
+
+            return NoContent();
+        }
     }
 }
