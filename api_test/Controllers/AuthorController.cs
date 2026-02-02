@@ -32,17 +32,18 @@ namespace api_test.Controllers
             var maxAuthorId = AuthorDataStore.Current.Authors.Max(x => x.Id);
 
             // Create the Author Object
-            var newAuthor = new Author() {
-              Id = maxAuthorId + 1,
-              FirstName = authorInsert.FirstName,
-              LastName = authorInsert.LastName  
+            var newAuthor = new Author()
+            {
+                Id = maxAuthorId + 1,
+                FirstName = authorInsert.FirstName,
+                LastName = authorInsert.LastName
             };
 
             //Insert the Author Object
             AuthorDataStore.Current.Authors.Add(newAuthor);
 
             return CreatedAtAction(nameof(GetAuthor),
-                new { authorId = newAuthor.Id},
+                new { authorId = newAuthor.Id },
                 newAuthor);
         }
 
