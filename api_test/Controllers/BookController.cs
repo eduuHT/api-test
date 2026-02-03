@@ -20,9 +20,21 @@ namespace api_test.Controllers
             return Ok(author.Books);
         }
 
-        /* [HttpGet]
-        public ActionResult<Book> GetBook()
-        { }
+        [HttpGet("{bookId}")]
+        public ActionResult<Book> GetBook(int authorId, int bookId)
+        {
+            var author = AuthorDataStore.Current.Authors.FirstOrDefault(x => x.Id == authorId);
+
+            if (author == null)
+                return NotFound("The requested Author could not be found.");
+
+            var book = author.Books?.FirstOrDefault(x => x.Id == bookId); // The question mark stops the following code if "Books" is empty
+
+            if (book == null)
+                return NotFound("The requested Book could not be found.");
+            
+            return Ok(book);
+        }
 
         [HttpPost]
         public ActionResult<Book> PostBook()
@@ -34,7 +46,7 @@ namespace api_test.Controllers
 
         [HttpDelete]
         public ActionResult<Book> DeleteBook()
-        { } */
+        { }
 
     }
 }
