@@ -32,21 +32,47 @@ namespace api_test.Controllers
 
             if (book == null)
                 return NotFound("The requested Book could not be found.");
-            
+
             return Ok(book);
         }
 
         [HttpPost]
-        public ActionResult<Book> PostBook()
-        { }
+        public ActionResult<Book> PostBook(int authorId, BookInsert bookInsert)
+        {
+            var author = AuthorDataStore.Current.Authors.FirstOrDefault(x => x.Id == authorId);
 
-        [HttpPut]
+            if (author == null)
+                return NotFound("The requested Author could not be found.");
+
+            var existingBook = author.Books?.FirstOrDefault(b => b.Title == bookInsert.Title);
+
+            if (existingBook != null)
+                return BadRequest("This book already exists.");
+
+            var maxBookId = author.Books.Max(m => m.Id);
+
+            var newBook = new Book()
+            {
+                Id = maxBookId + 1,
+                Title = bookInsert.Title,
+                Pages = bookInsert.Pages
+            };
+
+            author.Books.Add(newBook);
+
+            return CreatedAtAction(nameof(GetBook),
+                new { authorId = authorId, bookId = newBook.Id},
+                newBook
+            );
+        }
+
+        /* [HttpPut]
         public ActionResult<Book> PutBook()
         { }
 
         [HttpDelete]
         public ActionResult<Book> DeleteBook()
-        { }
+        { } */
 
     }
 }

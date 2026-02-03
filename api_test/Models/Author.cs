@@ -8,5 +8,5 @@ public class Author
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
 
-    public List<Book>? Books { get; set; }
+    public List<Book>? Books { get; set; } = new List<Book>();
 }
