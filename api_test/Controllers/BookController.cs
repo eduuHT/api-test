@@ -61,7 +61,7 @@ namespace api_test.Controllers
             author.Books.Add(newBook);
 
             return CreatedAtAction(nameof(GetBook),
-                new { authorId = authorId, bookId = newBook.Id},
+                new { authorId = authorId, bookId = newBook.Id },
                 newBook
             );
         }
@@ -92,9 +92,25 @@ namespace api_test.Controllers
             return NoContent();
         }
 
-        /* [HttpDelete]
-        public ActionResult<Book> DeleteBook()
-        { } */
+        [HttpDelete]
+        public ActionResult<Book> DeleteBook(int authorId, int bookId)
+        {
+            // Validations
+            var author = AuthorDataStore.Current.Authors.FirstOrDefault(x => x.Id == authorId);
+
+            if (author == null)
+                return NotFound("The requested Author could not be found.");
+
+            var existingBook = author.Books?.FirstOrDefault(b => b.Id == bookId);
+
+            if (existingBook == null)
+                return BadRequest("The requested book doesn't exist.");
+
+            //Elimination
+            author.Books?.Remove(existingBook);
+
+            return NoContent();
+        }
 
     }
 }
