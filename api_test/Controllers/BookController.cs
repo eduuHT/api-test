@@ -66,11 +66,33 @@ namespace api_test.Controllers
             );
         }
 
-        /* [HttpPut]
-        public ActionResult<Book> PutBook()
-        { }
+        [HttpPut]
+        public ActionResult<Book> PutBook(int authorId, int bookId, BookInsert bookInsert)
+        {
+            // Validations
+            var author = AuthorDataStore.Current.Authors.FirstOrDefault(x => x.Id == authorId);
 
-        [HttpDelete]
+            if (author == null)
+                return NotFound("The requested Author could not be found.");
+
+            var existingBook = author.Books?.FirstOrDefault(b => b.Id == bookId);
+
+            if (existingBook == null)
+                return BadRequest("The requested book doesn't exist.");
+
+            var sameNameBook = author.Books?.FirstOrDefault(b => b.Id != bookId && b.Title == bookInsert.Title);
+
+            if (sameNameBook != null)
+                return BadRequest("This book already exists.");
+
+            // Assigning
+            existingBook.Title = bookInsert.Title;
+            existingBook.Pages = bookInsert.Pages;
+
+            return NoContent();
+        }
+
+        /* [HttpDelete]
         public ActionResult<Book> DeleteBook()
         { } */
 
